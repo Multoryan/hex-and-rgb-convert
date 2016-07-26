@@ -1,21 +1,19 @@
 "use strict";
 
-/*var btnTestHEX = document.getElementById("inputHEX");
-var btnTestRGB = document.getElementById("inputRGB");
-btnTestHEX.addEventListener("keyup", convertToRGB);
-btnTestRGB.addEventListener("keyup", convertToHEX);*/
-
 var btnTest = document.getElementById("inputColor");
 btnTest.addEventListener("keyup", convert);
-
+btnTest.addEventListener("input", convert);
 
 function convert(){
 	var color = document.getElementById("inputColor").value;
 	color = color.replace(/\s+/g, ''); //Удаление пробелов
 	var patternHEX = /^#?([0-9a-f]{3}){1,2}$/i;
 	var patternRGB = /(^rgb\()?(\d{1,3}),(\d{1,3}),(\d{1,3})(\))?/;
+	
+	//Занулить результат если строка не подходит ни для HEX ни для RGB
 	if(patternHEX.test(color) == false && patternRGB.test(color) == false){
 		document.getElementById("result").innerHTML = "";
+		document.getElementById("test").style.display = "none";
 	}
 	if(patternHEX.test(color)){
 		convertToRGB(color);
@@ -23,8 +21,8 @@ function convert(){
 	if(patternRGB.test(color)){
 		convertToHEX(color);
 	}
+	
 }
-
 
 function convertToRGB(hex){
 
@@ -50,6 +48,8 @@ function convertToRGB(hex){
 		arr[i] = parseInt(temp).toString(10);
 	});
 	document.getElementById("result").innerHTML = "rgb ( " + hexToDiad.join() + " )";
+	document.getElementById("test").style.background = "rgb(" + hexToDiad.join() + ")";
+	document.getElementById("test").style.display = "block";
 }
 
 function convertToHEX(rgb){
@@ -58,7 +58,6 @@ function convertToHEX(rgb){
 		rgb = rgb.substr(4);
 		rgb = rgb.slice(0,-1);
 	}
-	console.log(rgb);
 	
 	var rgbToTriad = rgb.split(',');
 	var temp;
@@ -69,4 +68,6 @@ function convertToHEX(rgb){
 			arr[i] = "0" + arr[i];
 	});
 	document.getElementById("result").innerHTML = "#"+rgbToTriad.join('');
+	document.getElementById("test").style.background = "#"+rgbToTriad.join('');
+	document.getElementById("test").style.display = "block";
 }

@@ -3,11 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>HEX AND RGB</title>
-	<!-- <link rel="stylesheet" href="css/style.css"> -->
+	<!-- Только для оформления -->
+	<link rel="stylesheet" href="css/style.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-	<input type="text" id="inputColor" placeholder="Any Format Color">
-	<span id="result"></span>
+	<header>
+		<h3>Преобразование HEX в RGB и RGB в HEX</h3>
+		<h5>Форматы для HEX: #XXX; #XXXXXX; XXX; XXXXXX</h5>
+		<h5>Форматы для RGB: rgb(XXX,XXX,XXX); XXX,XXX,XXX</h5>
+	</header>
+	<div class="convertColor">
+		<!-- Поле для ввода цвета -->
+		<input type="text" id="inputColor" placeholder="Any Format Color" />
+		<!-- Место для вывода результата -->
+		<span id="result"></span>
+		<div id="test"></div>
+	</div>
 </body>
 <script src="js/script.js"></script>
 </html>
