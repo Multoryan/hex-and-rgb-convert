@@ -1,19 +1,48 @@
 "use strict";
 
+//Нажата клавиша или введено значение
 var btnTest = document.getElementById("inputColor");
-btnTest.addEventListener("keyup", convert);
 btnTest.addEventListener("input", convert);
+btnTest.oncopy = function(){
+	if(document.getElementById("result").value != "")
+	document.getElementById("result").click();
+}
+
+btnTest.onpaste = function(){
+	document.getElementById("inputColor").value = "";
+}
+
+//Возврат курсора в поле ввода
+btnTest.focus();
+document.body.addEventListener("keydown", setFocus);
+document.body.addEventListener("click", setFocus);
+	
+
+function setFocus(){
+	btnTest.focus(); //Установка фокуса
+}
+document.getElementById("intro").innerHTML = "Преобразование #hex в rgb() и наоборот";
+//Копирование по клику в буфер обмена
+var clipboard = new Clipboard('#result');
+
 
 function convert(){
+	
+	
+	
 	var color = document.getElementById("inputColor").value;
+	
 	color = color.replace(/\s+/g, ''); //Удаление пробелов
 	var patternHEX = /^#?([0-9a-f]{3}){1,2}$/i;
 	var patternRGB = /(^rgb\()?(\d{1,3}),(\d{1,3}),(\d{1,3})(\))?/;
 	
 	//Занулить результат если строка не подходит ни для HEX ни для RGB
 	if(patternHEX.test(color) == false && patternRGB.test(color) == false){
-		document.getElementById("result").innerHTML = "";
-		document.getElementById("test").style.display = "none";
+		document.getElementById("result").style.display = "none";
+		document.getElementById("clip").style.display = "none";
+		document.getElementById("result").value = "";
+		document.getElementById("intro").innerHTML = "Преобразование #hex в rgb() и наоборот";
+		document.body.style.background = "#fff";
 	}
 	if(patternHEX.test(color)){
 		convertToRGB(color);
@@ -47,9 +76,11 @@ function convertToRGB(hex){
 		temp = "0x" + item;
 		arr[i] = parseInt(temp).toString(10);
 	});
-	document.getElementById("result").innerHTML = "rgb ( " + hexToDiad.join() + " )";
-	document.getElementById("test").style.background = "rgb(" + hexToDiad.join() + ")";
-	document.getElementById("test").style.display = "block";
+	document.getElementById("result").value = "rgb(" + hexToDiad.join() + ")";
+	document.getElementById("result").style.display = "block";
+	document.getElementById("clip").style.display = "block";
+	document.body.style.background = "rgb(" + hexToDiad.join() + ")";
+	document.getElementById("intro").innerHTML = "";
 }
 
 function convertToHEX(rgb){
@@ -67,7 +98,12 @@ function convertToHEX(rgb){
 		if(arr[i].length == 1)
 			arr[i] = "0" + arr[i];
 	});
-	document.getElementById("result").innerHTML = "#"+rgbToTriad.join('');
-	document.getElementById("test").style.background = "#"+rgbToTriad.join('');
-	document.getElementById("test").style.display = "block";
+	document.getElementById("result").value = "#"+rgbToTriad.join('');
+	document.getElementById("result").style.display = "block";
+	document.getElementById("clip").style.display = "block";
+	document.body.style.background = "#"+rgbToTriad.join('');
+	document.getElementById("intro").innerText = "";
 }
+
+    
+

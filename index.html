@@ -9,18 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-	<header>
-		<h3>Преобразование HEX в RGB и RGB в HEX</h3>
-		<h5>Форматы для HEX: #XXX; #XXXXXX; XXX; XXXXXX</h5>
-		<h5>Форматы для RGB: rgb(XXX,XXX,XXX); XXX,XXX,XXX</h5>
-	</header>
 	<div class="convertColor">
 		<!-- Поле для ввода цвета -->
-		<input type="text" id="inputColor" placeholder="Any Format Color" />
+		<input type="text" id="inputColor" maxlength="15" placeholder="#hex или rgb()" />
 		<!-- Место для вывода результата -->
-		<span id="result"></span>
-		<div id="test"></div>
+		<span id="intro"></span>
+		<input type="text" id="result" data-clipboard-action="copy" data-clipboard-target="#result" />
+		<span id="clip">Ctrl+C скопирует значение</span>
 	</div>
 </body>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
 <script src="js/script.js"></script>
 </html>
